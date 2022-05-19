@@ -8,6 +8,7 @@ typedef struct Queue{
     Node *tail;
     int size;
     pthread_mutex_t *lock;
+    pthread_cond_t *cond;
 }Queue;
 
 
@@ -19,7 +20,10 @@ Queue* createQ(){
     q->size = 0;
     pthread_mutex_t *lock = (pthread_mutex_t*) malloc(sizeof(pthread_mutex_t));
     pthread_mutex_init(lock , NULL);
+    pthread_cond_t *cond1 = (pthread_cond_t*) malloc(sizeof(pthread_cond_t));
+    pthread_cond_init(cond1 , NULL);
     q->lock = lock;
+    q->cond = cond1;
     return q;
 }
 
@@ -42,17 +46,21 @@ void enQ(Queue *q , void* data){
     if (!q->head) {
         q->head = newNode;
         q->tail = newNode;
+        pthread_cond_signal(q->cond);
+
     } else {
         q->tail->next = newNode;
         q->tail = newNode;
     }
     q->size++;
     pthread_mutex_unlock(q->lock);
+    pthread_cond_signal(q->cond);
 }
 void* deQ(Queue *q){
     pthread_mutex_lock(q->lock);
     void* tmp;
     if (q->head  == NULL) {
+        pthread_cond_wait(q->cond, q->lock);
         tmp = NULL;
     }
     else{
@@ -67,10 +75,29 @@ void* deQ(Queue *q){
     return tmp;
 
 }
+void* top(Queue *q){
+    if(q->size > 0){
+        return q->head->data;
+    }
+    
 
-// int main(){
+}
 
-//     return 0;
+// *void before(){
+
+// }
+
+// *void after(){
+
+// }
+
+// void newAO(Queue q , void* before(void*) , void* after(void*)){
+//     while(q.size > 0){
+//         // q.pop -> before
+//         // pelet from before -> after
+
+
+//     }
 // }
 
 
