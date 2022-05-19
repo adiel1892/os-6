@@ -57,7 +57,7 @@ void *handelClients(void * newfd) {
             for (int i = 8; i < strlen(user_input); i++) {
                 rest[i - 8] = user_input[i];
             }
-            enQ(myQueue , (void*)rest);
+            enQ(myQueue , (void*)rest , strlen(rest));
         } else if((strcmp(dq_eq, "DEQUEUE") == 0)){
             deQ(myQueue);
         }else if((strcmp(dq_eq, "SHOWQUE") == 0)){

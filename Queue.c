@@ -38,9 +38,13 @@ void destroyQ(Queue *q){
     }
 }
 
-void enQ(Queue *q , void* data){
+void enQ(Queue *q , void* data, int data_size){
     Node *newNode = (Node*)malloc(sizeof(Node));
-    newNode->data = data;
+    newNode->data = (void*)malloc(sizeof(void*));
+    for(int i = 0; i < data_size; i++){
+        (void*) newNode->data[i] = data[i];
+    }
+    // newNode->data = data;
     newNode->next = NULL;
     pthread_mutex_lock(q->lock);
     if (!q->head) {
@@ -79,7 +83,7 @@ void* top(Queue *q){
     if(q->size > 0){
         return q->head->data;
     }
-    
+
 
 }
 
