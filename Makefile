@@ -6,25 +6,22 @@ flag = -Wall -g -c
 
 
 # make for the code.
-all: test.o server.o client.o
+all: server client
 
 Node.o: Node.c
 		$(CC) Node.c $(flag) Node.c
 
-test.o: Queue.o test.cpp
-		$(CC) test.cpp $(lp) $(o) test
+#test.o: Queue.o test.cpp
+#		$(CC) test.cpp $(lp) $(o) test
+
+server: Queue.o server.cpp
+		$(CC) server.cpp $(lp)  $(o) server
+
+client: client.cpp
+		$(CC) client.cpp $(lp) $(o) client
 
 Queue.o: Node.o Queue.c
 		$(CC) Queue.c $(lp) $(flag) Queue.c
-
-server.o: Queue.o server.cpp
-		$(CC) server.cpp $(lp) $(o) server
-
-client.o: client.cpp
-		$(CC) client.cpp $(lp) $(o) client
-
-
-
 
 # make clean
 clean:

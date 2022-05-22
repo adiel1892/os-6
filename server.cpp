@@ -19,7 +19,9 @@
 #define MAX_LENGTH 1024
 #define PORT "3492"  // the port users will be connecting to
 #define BACKLOG 10   // how many pending connections queue will hold
-Queue* myQueue = createQ();
+Queue* firstQueue = createQ();
+Queue* secondQueue = createQ();
+Queue* thirdQueue = createQ();
 pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 void sigchld_handler(int s)
 {
@@ -29,10 +31,55 @@ void sigchld_handler(int s)
 
     errno = saved_errno;
 }
+void * firstAct(void * word,int len) {
+    for (int i = 0; i < len; ++i) {
+        if (((char*)word)[i] <= 'Z') {
+            ((char*)word)[i] = (((char*)word)[i] + 1 - 65) % 26 + 65;//make every char shift by one but keep them in
+            //in range of A-Z.
+        } else {
+            ((char*)word)[i] = (((char*)word)[i] + 1 - 97) % 26 + 97;
+        }
+    }
+    return word;
+}
+void* (*functionPtrfirst)(void*,int)= &firstAct;
+void *secondAct(void *word,int len){
+    for (int i = 0; i < len; ++i) {
+        if(((char*)word)[i]<='Z') {
+            ((char*)word)[i] = ((char*)word)[i]+32;//make every big letter to small by asci value
+        }else{
+            ((char*)word)[i] = ((char*)word)[i]-32;//make every small letter to bih by asci value
+        }
+    }
+    return word;
+}
+void third_ActiveObj_func(int sock,int len){
+    while(thirdQueue->size!=0){
+        void * word_before = deQ(thirdQueue);
+        send(sock, word_before, len-1, 0);
+    }
+}
 
-//void broadcast() {
-//
-//}
+void second_ActiveObjfunc(int sock,int len){
+        while(secondQueue->size!=0){
+            void * word_before = deQ(secondQueue);
+            void * word_after = secondAct(word_before,len);
+            enQ(thirdQueue,word_after,len);
+            third_ActiveObj_func(sock,len);
+        }
+}
+void first_ActiveObj_func(int sock,int len,Queue * q,void*(*before)(void *,int),void(*second_ActiveObj)(int,int)){
+    while (q->size!=0){
+        void* word_before = deQ(q);
+        void* after_word = before(word_before,len);
+        enQ(secondQueue,after_word,len);
+        //maybe should add those thrid gotta check it
+        //pthread_t thread_id;
+        //pthread_create(&thread_id, NULL, second_ActiveObj, (void*)new_fd);
+        second_ActiveObj(sock,len);
+
+    }
+}
 
 void *handelClients(void * newfd) {
     long int newfd1 = (long int) newfd;
@@ -51,19 +98,8 @@ void *handelClients(void * newfd) {
         strncpy(user_push, user_input, 4);
         strncpy(dq_eq,user_input,7);
         pthread_mutex_lock(&lock);
-        
-     
-        if((strcmp(dq_eq, "ENQUEUE") == 0)){
-            for (int i = 8; i < strlen(user_input); i++) {
-                rest[i - 8] = user_input[i];
-            }
-            enQ(myQueue , (void*)rest , strlen(rest));
-        } else if((strcmp(dq_eq, "DEQUEUE") == 0)){
-            deQ(myQueue);
-        }else if((strcmp(dq_eq, "SHOWQUE") == 0)){
-            send(newfd1, top(myQueue), MAX_LENGTH, 0);
-        }
-        printf("%s",user_input);
+        enQ(firstQueue , (void*)user_input , strlen(user_input));
+        first_ActiveObj_func(newfd1,strlen(user_input),firstQueue,*firstAct,*second_ActiveObjfunc);
         pthread_mutex_unlock(&lock);
     }
 }

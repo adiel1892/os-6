@@ -11,8 +11,6 @@ typedef struct Queue{
     pthread_cond_t *cond;
 }Queue;
 
-
-
 Queue* createQ(){
     Queue* q = (Queue*)malloc(sizeof(Queue));
     q->head = NULL;
@@ -40,9 +38,9 @@ void destroyQ(Queue *q){
 
 void enQ(Queue *q , void* data, int data_size){
     Node *newNode = (Node*)malloc(sizeof(Node));
-    newNode->data = (void*)malloc(sizeof(void*));
+    newNode->data = malloc(1024);
     for(int i = 0; i < data_size; i++){
-        (void*) newNode->data[i] = data[i];
+        ((char*)newNode->data)[i] = ((char*)data)[i];
     }
     // newNode->data = data;
     newNode->next = NULL;

@@ -32,7 +32,7 @@ void* clientRcv(void* sock){
         memset(rest,0,MAX_LENGTH);
         recv(Rsock , rest ,MAX_LENGTH,0);
         printf("OUTPUT : ");
-        printf("%s",rest);
+        printf("%s\n",rest);
         if(strcmp(rest,"Goodbye")==0){
             finish=1;
         }
