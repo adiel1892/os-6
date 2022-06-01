@@ -7,12 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd3120c9-586c-4469-8aa3-894c3244bcf6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Node.o" beforeDir="false" afterPath="$PROJECT_DIR$/Node.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Queue.c" beforeDir="false" afterPath="$PROJECT_DIR$/Queue.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/client.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/activeObject.c" beforeDir="false" afterPath="$PROJECT_DIR$/activeObject.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/server.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/test.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,11 +52,25 @@
       <workItem from="1652965308204" duration="2675000" />
       <workItem from="1653040399273" duration="608000" />
       <workItem from="1653144163042" duration="9151000" />
-      <workItem from="1653240098308" duration="6414000" />
+      <workItem from="1653240098308" duration="6565000" />
+      <workItem from="1653561745566" duration="17657000" />
+      <workItem from="1653665844561" duration="18000" />
+      <workItem from="1654019659552" duration="5795000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

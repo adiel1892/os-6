@@ -1,5 +1,3 @@
-
-   
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -31,6 +29,12 @@ void sigchld_handler(int s)
 
     errno = saved_errno;
 }
+
+void destroyAO(pthread_t thread,Queue * q){
+    destroyQ(q);
+    pthread_cancel(thread);
+}
+
 void * firstAct(void * word,int len) {
     for (int i = 0; i < len; ++i) {
         if (((char*)word)[i] <= 'Z') {
@@ -53,22 +57,22 @@ void *secondAct(void *word,int len){
     }
     return word;
 }
-void third_ActiveObj_func(int sock,int len){
+void newAO_3(int sock,int len){
     while(thirdQueue->size!=0){
         void * word_before = deQ(thirdQueue);
         send(sock, word_before, len-1, 0);
     }
 }
 
-void second_ActiveObjfunc(int sock,int len){
+void newAO_2(int sock,int len){
         while(secondQueue->size!=0){
             void * word_before = deQ(secondQueue);
             void * word_after = secondAct(word_before,len);
             enQ(thirdQueue,word_after,len);
-            third_ActiveObj_func(sock,len);
+            newAO_3(sock,len);
         }
 }
-void first_ActiveObj_func(int sock,int len,Queue * q,void*(*before)(void *,int),void(*second_ActiveObj)(int,int)){
+void newAO_1(int sock,int len,Queue * q,void*(*before)(void *,int),void(*second_ActiveObj)(int,int)){
     while (q->size!=0){
         void* word_before = deQ(q);
         void* after_word = before(word_before,len);
@@ -99,7 +103,7 @@ void *handelClients(void * newfd) {
         strncpy(dq_eq,user_input,7);
         pthread_mutex_lock(&lock);
         enQ(firstQueue , (void*)user_input , strlen(user_input));
-        first_ActiveObj_func(newfd1,strlen(user_input),firstQueue,*firstAct,*second_ActiveObjfunc);
+        newAO_1(newfd1,strlen(user_input),firstQueue,*firstAct,*newAO_2);
         pthread_mutex_unlock(&lock);
     }
 }
