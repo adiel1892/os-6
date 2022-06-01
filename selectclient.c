@@ -10,7 +10,7 @@
 #include <pthread.h>
 #include <arpa/inet.h>
 #define MAX_LENGTH 1024
-#define PORT "3492" // the port client will be connecting to
+#define PORT "3492" // the port selectclient will be connecting to
 int finish =0;
 #define MAXDATASIZE 100 // max number of bytes we can get at once
 
@@ -32,7 +32,7 @@ void* clientRcv(void* sock){
         memset(rest,0,MAX_LENGTH);
         recv(Rsock , rest ,MAX_LENGTH,0);
         printf("OUTPUT : ");
-        printf("%s\n",rest);
+        printf("%s",rest);
         if(strcmp(rest,"Goodbye")==0){
             finish=1;
         }
@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
     char s[INET6_ADDRSTRLEN];
 
     if (argc != 2) {
-        fprintf(stderr,"usage: client hostname\n");
+        fprintf(stderr,"usage: selectclient hostname\n");
         exit(1);
     }
 
@@ -73,13 +73,13 @@ int main(int argc, char *argv[])
     for(p = servinfo; p != NULL; p = p->ai_next) {
         if ((sockfd = socket(p->ai_family, p->ai_socktype,
                              p->ai_protocol)) == -1) {
-            perror("client: socket");
+            perror("selectclient: socket");
             continue;
         }
 
         if (connect(sockfd, p->ai_addr, p->ai_addrlen) == -1) {
             close(sockfd);
-            perror("client: connect");
+            perror("selectclient: connect");
             continue;
         }
 
@@ -87,13 +87,13 @@ int main(int argc, char *argv[])
     }
 
     if (p == NULL) {
-        fprintf(stderr, "client: failed to connect\n");
+        fprintf(stderr, "selectclient: failed to connect\n");
         return 2;
     }
 
     inet_ntop(p->ai_family, get_in_addr((struct sockaddr *)p->ai_addr),
               s, sizeof s);
-    printf("client: connecting to %s\n", s);
+    printf("selectclient: connecting to %s\n", s);
     freeaddrinfo(servinfo); // all done with this structure
 //    send(sockfd,"PUSH A",6,0);
     pthread_t send;

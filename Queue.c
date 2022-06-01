@@ -11,7 +11,7 @@ typedef struct Queue{
     pthread_cond_t *cond;
 }Queue;
 
-Queue* createQ(){
+ Queue* createQ(){
     Queue* q = (Queue*)malloc(sizeof(Queue));
     q->head = NULL;
     q->tail = NULL;
@@ -22,7 +22,7 @@ Queue* createQ(){
     pthread_cond_init(cond1 , NULL);
     q->lock = lock;
     q->cond = cond1;
-    return q;
+    return  q;
 }
 
 
