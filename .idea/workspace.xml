@@ -7,17 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="dd3120c9-586c-4469-8aa3-894c3244bcf6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/test.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Guard.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/guard.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Queue.c" beforeDir="false" afterPath="$PROJECT_DIR$/Queue.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Singelton.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/singelton.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/activeObject.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/client.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/selectclient.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main1.c" beforeDir="false" afterPath="$PROJECT_DIR$/main1.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.cpp" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +53,8 @@
       <workItem from="1653240098308" duration="6565000" />
       <workItem from="1653561745566" duration="17657000" />
       <workItem from="1653665844561" duration="18000" />
-      <workItem from="1654019659552" duration="13893000" />
+      <workItem from="1654019659552" duration="14639000" />
+      <workItem from="1654156651292" duration="3562000" />
     </task>
     <servers />
   </component>

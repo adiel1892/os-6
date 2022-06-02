@@ -19,7 +19,7 @@ fd_set master;    // master file descriptor list
 fd_set read_fds;  // temp file descriptor list for select()
 int fdmax;        // maximum file descriptor number
 int listener;     // listening socket descriptor
-
+pthread_mutex_t lock = PTHREAD_MUTEX_INITIALIZER;
 // get sockaddr, IPv4 or IPv6:
 void *get_in_addr(struct sockaddr *sa)
 {
@@ -37,6 +37,7 @@ void * handle_client(void * new_fd) {
         // handle data from a selectclient
         int nbytes;
         if ((nbytes = recv(newfd1, bufer, 1024, 0)) <= 0) {
+            pthread_mutex_lock(&lock);
             // got error or connection closed by selectclient
             if (nbytes == 0) {
                 // connection closed
@@ -59,6 +60,7 @@ void * handle_client(void * new_fd) {
                     }
                 }
             }
+            pthread_mutex_unlock(&lock);
 
         }
     }

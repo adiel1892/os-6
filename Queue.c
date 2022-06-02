@@ -41,8 +41,12 @@ void enQ(Queue *q , void* data, int data_size){
     newNode->data = malloc(1024);
     for(int i = 0; i < data_size; i++){
         ((char*)newNode->data)[i] = ((char*)data)[i];
+        if(i==data_size-2){
+            i++;
+            ((char*)newNode->data)[i] = '\n';
+        }
     }
-    // newNode->data = data;
+
     newNode->next = NULL;
     pthread_mutex_lock(q->lock);
     if (!q->head) {
