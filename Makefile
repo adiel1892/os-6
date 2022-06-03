@@ -7,7 +7,7 @@ flag = -Wall -g -c
 
 
 # make for the code.
-all: server client main1 guard singelton
+all: server client main1 guard singelton test
 
 main1: Queue.o main1.c
 		$(gg)  main1.c $(lp)  $(o) main1
@@ -15,8 +15,9 @@ main1: Queue.o main1.c
 Node.o: Node.c
 		$(CC) Node.c $(flag) Node.c
 
-#test.o: Queue.o test.cpp
-#		$(CC) test.cpp $(lp) $(o) test
+test:
+		$(CC) test.c $(lp) $(o) test
+
 guard:
 		$(gg) guard.cpp -o guard $(lp)
 

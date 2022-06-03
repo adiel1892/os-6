@@ -68,7 +68,7 @@ void * handle_client(void * new_fd) {
 
 int main(void)
 {
-
+    printf("--Hello to select server waiting for client to connect--\n");
     int newfd;        // newly accept()ed socket descriptor
     struct sockaddr_storage remoteaddr; // selectclient address
     socklen_t addrlen;
