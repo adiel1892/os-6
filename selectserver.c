@@ -168,32 +168,7 @@ int main(void)
                         InstallHandler(rec,&handle_client,newfd);
                     }
                 }
-//                    // handle data from a selectclient
-//                    if ((nbytes = recv(i, buf, sizeof buf, 0)) <= 0) {
-//                        // got error or connection closed by selectclient
-//                        if (nbytes == 0) {
-//                            // connection closed
-//                            printf("selectserver: socket %d hung up\n", i);
-//                        } else {
-//                            perror("recv");
-//                        }
-//                        close(i); // bye!
-//                        FD_CLR(i, &master); // remove from master set
-//                    } else {
-//                        // we got some data from a selectclient
-//                        for(j = 0; j <= fdmax; j++) {
-//                            // send to everyone!
-//                            if (FD_ISSET(j, &master)) {
-//                                // except the listener and ourselves
-//                                if (j != listener && j != i) {
-//                                    if (send(j, buf, nbytes, 0) == -1) {
-//                                        perror("send");
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                } // END handle data from selectclient
+
             } // END got new incoming connection
         } // END looping through file descriptors
     } // END for(;;)--and you thought it would never end!
