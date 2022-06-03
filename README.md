@@ -9,4 +9,4 @@ after you send some message tou should type enter in the client and than the str
 
 4. in q. 6 we implemet select server with the recator disgn pattern to run it open a terminal and type ./server and to connect with client run ./client
 (your host name), now you can start sending masseges between clients
-if you want to run the test run gcc test.c -lpthred -o test and then type ./test to see the auto test.
+if you want to run the open terminal to the server and than run in the other one ./test.
